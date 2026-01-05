@@ -38,11 +38,32 @@
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
-                <th>Kode</th>
+                <th>
+                    <a href="{{ route('borrowings.index', ['sort' => 'borrow_code', 'direction' => ($sortField == 'borrow_code' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                        Kode
+                        @if($sortField == 'borrow_code')
+                            <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                        @endif
+                    </a>
+                </th>
                 <th>Buku</th>
                 <th>Customer</th>
-                <th>Tanggal Pinjam</th>
-                <th>Tanggal Kembali</th>
+                <th>
+                    <a href="{{ route('borrowings.index', ['sort' => 'borrow_date', 'direction' => ($sortField == 'borrow_date' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                        Tanggal Pinjam
+                        @if($sortField == 'borrow_date')
+                            <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                        @endif
+                    </a>
+                </th>
+                <th>
+                    <a href="{{ route('borrowings.index', ['sort' => 'return_date', 'direction' => ($sortField == 'return_date' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                        Tanggal Kembali
+                        @if($sortField == 'return_date')
+                            <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                        @endif
+                    </a>
+                </th>
                 <th style="width: 200px;">Aksi</th>
             </tr>
         </thead>

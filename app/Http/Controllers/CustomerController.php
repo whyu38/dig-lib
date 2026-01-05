@@ -7,10 +7,19 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function index()
+public function index(Request $request)
     {
-        $customers = Customer::paginate(10);
-        return view('customers.index', compact('customers'));
+        $sortField = $request->get('sort', 'name');
+        $sortDirection = $request->get('direction', 'asc');
+
+        $allowedSortFields = ['name', 'email', 'created_at'];
+        if (!in_array($sortField, $allowedSortFields)) {
+            $sortField = 'name';
+        }
+
+        $customers = Customer::orderBy($sortField, $sortDirection)->paginate(10);
+
+        return view('customers.index', compact('customers', 'sortField', 'sortDirection'));
     }
 
     public function create()

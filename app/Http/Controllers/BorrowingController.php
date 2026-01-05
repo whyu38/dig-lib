@@ -9,11 +9,23 @@ use Illuminate\Http\Request;
 
 class BorrowingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $borrowings = Borrowing::with(['book', 'customer'])->paginate(10);
-        return view('borrowings.index', compact('borrowings'));
+        $sortField = $request->get('sort', 'created_at'); 
+        $sortDirection = $request->get('direction', 'asc'); 
+
+        $allowedSortFields = ['borrow_date', 'return_date'];
+        if (!in_array($sortField, $allowedSortFields)) {
+            $sortField = 'borrow_date';
+        }
+
+        $borrowings = Borrowing::with(['book', 'customer'])
+            ->orderBy($sortField, $sortDirection)
+            ->paginate(10);
+
+        return view('borrowings.index', compact('borrowings', 'sortField', 'sortDirection'));
     }
+
 
     public function create()
     {

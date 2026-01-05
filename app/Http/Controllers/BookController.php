@@ -7,11 +7,21 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::paginate(10);
-        return view('books.index', compact('books'));
+        $sortField = $request->get('sort', 'title'); 
+        $sortDirection = $request->get('direction', 'asc');
+
+        $allowedSortFields = ['title', 'author', 'stock'];
+        if (!in_array($sortField, $allowedSortFields)) {
+            $sortField = 'title';
+        }
+
+        $books = Book::orderBy($sortField, $sortDirection)->paginate(10);
+
+        return view('books.index', compact('books', 'sortField', 'sortDirection'));
     }
+
 
     public function create()
     {

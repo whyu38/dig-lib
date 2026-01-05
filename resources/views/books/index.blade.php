@@ -36,14 +36,35 @@
     </div>
 
     <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Judul</th>
-                <th>Penulis</th>
-                <th>Stok</th>
-                <th style="width: 200px;">Aksi</th>
-            </tr>
-        </thead>
+    <thead class="table-dark">
+        <tr>
+            <th>
+                <a href="{{ route('books.index', ['sort' => 'title', 'direction' => ($sortField == 'title' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                    Judul
+                    @if($sortField == 'title')
+                        <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                    @endif
+                </a>
+            </th>
+            <th>
+                <a href="{{ route('books.index', ['sort' => 'author', 'direction' => ($sortField == 'author' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                    Penulis
+                    @if($sortField == 'author')
+                        <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                    @endif
+                </a>
+            </th>
+            <th>
+                <a href="{{ route('books.index', ['sort' => 'stock', 'direction' => ($sortField == 'stock' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                    Stok
+                    @if($sortField == 'stock')
+                        <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                    @endif
+                </a>
+            </th>
+            <th style="width: 200px;">Aksi</th>
+        </tr>
+    </thead>
         <tbody>
             @foreach($books as $book)
             <tr>

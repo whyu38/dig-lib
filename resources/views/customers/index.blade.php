@@ -38,8 +38,22 @@
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
-                <th>Nama</th>
-                <th>Email</th>
+                <th>
+                    <a href="{{ route('customers.index', ['sort' => 'name', 'direction' => ($sortField == 'name' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                        Nama
+                        @if($sortField == 'name')
+                            <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                        @endif
+                    </a>
+                </th>
+                <th>
+                    <a href="{{ route('customers.index', ['sort' => 'email', 'direction' => ($sortField == 'email' && $sortDirection == 'asc') ? 'desc' : 'asc']) }}" class="text-white text-decoration-none">
+                        Email
+                        @if($sortField == 'email')
+                            <i class="bi bi-caret-{{ $sortDirection == 'asc' ? 'up' : 'down' }}-fill"></i>
+                        @endif
+                    </a>
+                </th>
                 <th>Telepon</th>
                 <th style="width: 200px;">Aksi</th>
             </tr>
